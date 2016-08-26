@@ -1,0 +1,29 @@
+<div id="wrapper">
+    <div class="register">
+    	<h4>Register</h4>
+    	<form action="/users" method="post">
+    		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    		First Name:
+    		<input type="text" name="user[first_name]" placeholder="firstname">
+    		Last Name:
+    		<input type="text" name="user[last_name]" placeholder="lastname">
+    		Email:
+    		<input type="text" name="user[email]" placeholder="email@email.com">
+    		password:
+    		<input type="password" name="user[password]">
+    		<input type="submit" value="Register">
+    	</form>
+    </div><!-- endregister -->
+    <div class="login">
+    	
+	<form method="post" action="/sessions">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<input type="text" name="user[email]">
+		<input type="password" name="user[password]">
+		<button>Log In</button>
+	</form>
+    </div><!-- endlogin -->
+    <% if flash[:errors] %>
+	<h3 style="color:red"><%= flash[:errors]%></h3>
+	<% end %>
+</div><!-- endwrapper -->

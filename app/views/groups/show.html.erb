@@ -1,0 +1,25 @@
+<a href="/sessions/destroy">Logout</a>
+<a href="/groups">Dashboard</a>
+
+<h1><%=@group.org_name%></h1> 
+<%if @member[0]%>
+		<form method="post" action="/memberships/<%=@member[0].id%>">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			<input type="hidden" name="_method" value="delete">
+		<button>Quit</button>
+	</form>
+<%else%>
+	<form method="post" action="/memberships">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<input type="hidden" name="membership[user_id]" value="<%=session['id']%>">
+		<input type="hidden" name="membership[group_id]" value="<%=@group.id%>">
+	<button>Join</button>
+	</form>
+<%end%>
+<p><%=@group.description%></p>
+<p> created by <%=@group.user.first_name%> <%=@group.user.last_name%></p>
+
+<% @attendees.each do |i|%>
+	<%=User.find(i.user_id).first_name%>
+<%end%>
+

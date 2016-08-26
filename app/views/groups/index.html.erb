@@ -1,0 +1,29 @@
+<a href="/sessions/destroy">Logout</a>
+<h1>hey <%=@user.first_name%></h1>
+<% if flash[:errors] %>
+	<h3 style="color:red"><%= flash[:errors]%></h3>
+	<% end %>
+
+	<form action="/groups" method="post">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<input type="hidden" name="group[user_id]" value="<%=@user.id%>">
+		Organization name:
+		<input type="text" name="group[org_name]">
+		Description:
+		<input type="text" name="group[description]">
+		<input type="submit" value="Register">
+    </form>
+<% @groups.each do |group|%>
+	<a href="/groups/<%=group.id%>"><%=group.org_name%></p></a>
+	<p>members <%=group.memberships.count%></p>
+	<p><%=group.description%></p>
+  	<% if @user.id == group.user_id%>
+	<form method="post" action="/groups/<%=group.id%>">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type="hidden" name="_method" value="delete">
+	<button>Delete Group</button>
+	</form>
+	<%end%>
+	<%end%>
+
+
